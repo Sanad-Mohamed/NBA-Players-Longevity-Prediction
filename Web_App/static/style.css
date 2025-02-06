@@ -1,0 +1,59 @@
+body {
+    position: relative;
+    background-color: #faf3ed;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.header-icon {
+    padding-right: 10px;
+    width: 50px;
+}
+
+.header-title {
+    color: #c8650f;
+    margin: 0;
+}
+
+.fields-table {
+    padding-top: 40px;
+    width: 100%;
+}
+
+.results-table {
+    padding-top: 30px;
+    width: 100%;
+}
+
+.predict-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #c8650f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.predict-button:hover {
+    background-color: #7f4409;
+}
+
+.clear-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #080430;
+    background-color: #c1d6fb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.clear-button:hover {
+    background-color: #92b6f5;
+}

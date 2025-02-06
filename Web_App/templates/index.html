@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Talent Prediction</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="header">
+        <img src="../static/images/basketball.png" alt="Basketball Icon" class="header-icon">
+        <h2 class="header-title">NBA Talent Detection: Prediction of players with longevity over 5 years</h2>
+    </div>
+
+    <!-- Form for input data -->
+    <form id="prediction-form">
+        <!-- Table with 6 columns and 7 rows -->
+        <table border="0" cellspacing="10" class="fields-table">
+            <!-- GP in the middle, columns 3 and 4 -->
+            <tr>
+                <td colspan="2"></td> <!-- Empty space for first two columns -->
+                <td style="padding-left: 100px;"><label for="GP">GP (Games Played) :</label></td>
+                <td><input type="text" name="GP" placeholder="GP"></td>
+                <td colspan="2"></td> <!-- Empty space for last two columns -->
+            </tr>
+
+            <tr><td colspan="6" style="height: 10px;"></td></tr> <!-- For spacing -->
+
+            <!-- First row of labels and inputs -->
+            <tr>
+                <td><label for="MIN">MIN (Minutes Played) :</label></td>
+                <td><input type="text" name="MIN" placeholder="MIN"></td>
+                <td style="padding-left: 100px;"><label for="PTS">PTS (Points Per Game) :</label></td>
+                <td><input type="text" name="PTS" placeholder="PTS"></td>
+                <td style="padding-left: 100px;"><label for="FGM">FGM (Field Goals Made) :</label></td>
+                <td><input type="text" name="FGM" placeholder="FGM"></td>
+            </tr>
+            
+            <!-- Second row of labels and inputs -->
+            <tr>
+                <td><label for="FGA">FGA (Field Goals Attempted) :</label></td>
+                <td><input type="text" name="FGA" placeholder="FGA"></td>
+                <td style="padding-left: 100px;"><label for="FG%">FG% (Field Goal Percentage) :</label></td>
+                <td><input type="text" name="FG%" placeholder="FG%"></td>
+                <td style="padding-left: 100px;"><label for="3P Made">3P Made (3-Point Field Goals Made) :</label></td>
+                <td><input type="text" name="3P Made" placeholder="3P Made"></td>
+            </tr>
+            
+            <!-- Third row of labels and inputs -->
+            <tr>
+                <td><label for="3PA">3PA (3-Point Field Goals Attempted) :</label></td>
+                <td><input type="text" name="3PA" placeholder="3PA"></td>
+                <td style="padding-left: 100px;"><label for="3P%">3P% (3-Point Percentage) :</label></td>
+                <td><input type="text" name="3P%" placeholder="3P%"></td>
+                <td style="padding-left: 100px;"><label for="FTM">FTM (Free Throws Made) :</label></td>
+                <td><input type="text" name="FTM" placeholder="FTM"></td>
+            </tr>
+            
+            <!-- Fourth row of labels and inputs -->
+            <tr>
+                <td><label for="FTA">FTA (Free Throws Attempted) :</label></td>
+                <td><input type="text" name="FTA" placeholder="FTA"></td>
+                <td style="padding-left: 100px;"><label for="FT%">FT% (Free Throw Percentage) :</label></td>
+                <td><input type="text" name="FT%" placeholder="FT%"></td>
+                <td style="padding-left: 100px;"><label for="OREB">OREB (Offensive Rebounds) :</label></td>
+                <td><input type="text" name="OREB" placeholder="OREB"></td>
+            </tr>
+            
+            <!-- Fifth row of labels and inputs -->
+            <tr>
+                <td><label for="DREB">DREB (Defensive Rebounds) :</label></td>
+                <td><input type="text" name="DREB" placeholder="DREB"></td>
+                <td style="padding-left: 100px;"><label for="REB">REB (Total Rebounds) :</label></td>
+                <td><input type="text" name="REB" placeholder="REB"></td>
+                <td style="padding-left: 100px;"><label for="AST">AST (Assists) :</label></td>
+                <td><input type="text" name="AST" placeholder="AST"></td>
+            </tr>
+            
+            <!-- Sixth row of labels and inputs -->
+            <tr>
+                <td><label for="STL">STL (Steals) :</label></td>
+                <td><input type="text" name="STL" placeholder="STL"></td>
+                <td style="padding-left: 100px;"><label for="BLK">BLK (Blocks) :</label></td>
+                <td><input type="text" name="BLK" placeholder="BLK"></td>
+                <td style="padding-left: 100px;"><label for="TOV">TOV (Turnovers) :</label></td>
+                <td><input type="text" name="TOV" placeholder="TOV"></td>
+            </tr>
+        </table>
+
+        <!-- Table with 3 columns and 1 row -->
+        <table border="0" cellspacing="10" class="results-table">
+            <tr>
+                <!-- First column: Image -->
+                <td style="text-align: center;">
+                    <img src="../static/images/nba_1.png" alt="Left Image" height="270">
+                </td>
+
+                <!-- Second column: Error message or prediction result -->
+                <td style="width: 100%; vertical-align: top;">
+                    <div style="text-align: center; padding-top: 10px; display: flex; justify-content: center; gap: 50px;">
+                        <button type="button" id="clear-button" class="clear-button">Clear</button> <!-- Clear the fields -->
+                        <button type="submit" class="predict-button">Predict</button>
+                    </div>
+                    <div id="result" style="text-align: center; margin-top: 20px;"></div>
+                </td>
+                
+                <!-- Third column: Image -->
+                <td style="text-align: center;">
+                    <img src="../static/images/nba_2.png" alt="Right Image" height="270">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <!-- JavaScript to handle form submission without refreshing the page -->
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('result').innerHTML = `
+                    <p style="padding-top: 15px; font-size: 22px; font-family: Arial, sans-serif; font-weight: bold; color: #e14141">
+                        ${data.error}
+                    </p>`;
+                } else {
+                    const resultText = data.predicted_class === 1
+                        ? "It is worth investing in this player !!"
+                        : "It is not worth investing in this player !!";
+                    
+                    const imageSource = data.predicted_class === 1
+                        ? "../static/images/good.png"
+                        : "../static/images/bad.png";
+                
+                    document.getElementById('result').innerHTML = `
+                        <p style="padding-top: 15px; padding-bottom: 10px; font-weight: bold; font-size: 22px; color: ${data.predicted_class === 1 ? '#0d772b' : '#960c0c'};">
+                            ${resultText}
+                        </p>
+                        <img src="${imageSource}" width="100px" />
+                    `;
+                }
+            })
+            .catch(error => console.log('Error:', error));
+        });
+
+        // Clear button functionality
+        document.getElementById('clear-button').addEventListener('click', function() {
+            document.getElementById('prediction-form').reset();
+            document.getElementById('result').innerHTML = '';
+        });
+    </script>
+</body>
+</html>
