@@ -7,3 +7,11 @@ La première partie (le jupyter notebook) est dédiée à l'entrainement du mod�
 L'application web ressemble à :
 
 ![alt text](https://github.com/Sanad-Mohamed/NBA-Players-Longevity-Prediction/blob/main/Images/Web%20App.png)
+
+Quand le modèle prédit qu'il vaut le coup d'investir sur un joueur, le message suivant apparait :
+
+![alt text](https://github.com/Sanad-Mohamed/NBA-Players-Longevity-Prediction/blob/main/Images/Good%20player.png)
+
+Sinon, on voit apparaitre le message suivant :
+
+![alt text](https://github.com/Sanad-Mohamed/NBA-Players-Longevity-Prediction/blob/main/Images/Bad%20player.png)
