@@ -15,3 +15,7 @@ Quand le modèle prédit qu'il vaut le coup d'investir sur un joueur, le message
 Sinon, on voit apparaitre le message suivant :
 
 ![alt text](https://github.com/Sanad-Mohamed/NBA-Players-Longevity-Prediction/blob/main/Images/Bad%20player.png)
+
+Pour la partie de préparation des données, le schéma illustre en détail tout le processus :
+
+![alt text](https://github.com/Sanad-Mohamed/NBA-Players-Longevity-Prediction/blob/main/Images/Data%20Preparation.png)
